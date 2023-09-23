@@ -5,8 +5,6 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { getApiClient } from "./apiClient";
 import {
   ErrorMessage,
-  UserInfo,
-  UserLoginData,
 } from "../interfaces/index";
 
 const apiClient = getApiClient();
@@ -31,16 +29,16 @@ const performRequest = async (request: Promise<AxiosResponse<any>>) => {
 };
 
 // User related APIs
-export const registerUser = (user: any): Promise<UserInfo> =>
+export const registerUser = (user: any): Promise<any> =>
   performRequest(apiClient.post("/auth", user));
 
-export const loginUser = (userLoginData: UserLoginData): Promise<UserInfo> =>
-  performRequest(apiClient.post("/api/auth/login", userLoginData));
+export const loginUser = (userLoginData: any): Promise<any> =>
+  performRequest(apiClient.post("/auth/sign_in", userLoginData));
 
-export const readUsers = (): Promise<UserInfo[]> =>
+export const readUsers = (): Promise<any[]> =>
   performRequest(apiClient.get("/api/users"));
 
-export const readUserById = (userId: number): Promise<UserInfo> =>
+export const readUserById = (userId: number): Promise<any> =>
   performRequest(apiClient.get(`/api/users/${userId}`));
 
 export const readUserPosts = (userId: number) =>
@@ -48,7 +46,7 @@ export const readUserPosts = (userId: number) =>
 
 export const updateUserProfile = (
   user: any
-): Promise<UserInfo> =>
+): Promise<any> =>
   performRequest(apiClient.put("/api/users/profile", user));
 
 export const updateUser = (user: {
@@ -56,14 +54,14 @@ export const updateUser = (user: {
   name: string;
   email: string;
   isAdmin: boolean;
-}): Promise<UserInfo> =>
+}): Promise<any> =>
   performRequest(apiClient.put(`/api/users/${user.id}`, user));
 
 export const deleteUser = (id: number) =>
   performRequest(apiClient.delete(`/api/users/${id}`));
 
 export const logoutUser = () =>
-  performRequest(apiClient.post("/api/auth/logout"));
+  performRequest(apiClient.delete("/auth/sign_out"));
 
 export const readTop = (): Promise<string> =>
   performRequest(apiClient.get(`/api/`));

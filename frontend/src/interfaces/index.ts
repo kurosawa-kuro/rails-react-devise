@@ -1,69 +1,67 @@
-import { Request } from "express";
-import { JwtPayload } from "jsonwebtoken";
-import { Post, Prisma, Tag, User } from "@prisma/client";
 
-// --------------------------
-// User related interfaces
-export interface UserWithoutPassWord extends Omit<User, "password"> {}
 
-export type UserLoginData = Omit<Prisma.UserCreateInput, "name">;
-export type UserRegisterData = Prisma.UserCreateInput & {
-  confirmPassword?: string;
-};
+// // --------------------------
+// // User related interfaces
+// export interface UserWithoutPassWord extends Omit<User, "password"> {}
 
-export interface UserInfo extends Partial<UserWithoutPassWord> {
-  confirmPassword?: string;
-  token?: string;
-  posts?: {
-    id: number;
-    description: string;
-    imagePath: string | null;
-    user: {
-      id: number;
-      name: string;
-      avatarPath: string | null;
-    };
-  }[];
-  isFollowed?: boolean;
-  followeeCount?: number;
-  followerCount?: number;
-}
+// export type UserLoginData = Omit<Prisma.UserCreateInput, "name">;
+// export type UserRegisterData = Prisma.UserCreateInput & {
+//   confirmPassword?: string;
+// };
 
-export interface UserAuth {
-  userInfo: UserInfo | null;
-  setUserInfo: (userInfo: UserInfo) => void;
-  logout: () => void;
-}
+// export interface UserInfo extends Partial<UserWithoutPassWord> {
+//   confirmPassword?: string;
+//   token?: string;
+//   posts?: {
+//     id: number;
+//     description: string;
+//     imagePath: string | null;
+//     user: {
+//       id: number;
+//       name: string;
+//       avatarPath: string | null;
+//     };
+//   }[];
+//   isFollowed?: boolean;
+//   followeeCount?: number;
+//   followerCount?: number;
+// }
 
-// --------------------------
-// JWT and Request related interfaces
+// export interface UserAuth {
+//   userInfo: UserInfo | null;
+//   setUserInfo: (userInfo: UserInfo) => void;
+//   logout: () => void;
+// }
 
-export interface UserDecodedJwtPayload extends JwtPayload {
-  userId: string;
-}
+// // --------------------------
+// // JWT and Request related interfaces
 
-export interface UserRequest extends Request {
-  user?: UserInfo;
-}
+// export interface UserDecodedJwtPayload extends JwtPayload {
+//   userId: string;
+// }
 
-// --------------------------
-// TagsOnPosts related interfaces
-export interface PostWithUserAndTags extends Omit<Post, "userId"> {
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    isAdmin: boolean;
-  };
-  tags: Tag[];
-}
+// export interface UserRequest extends Request {
+//   user?: UserInfo;
+// }
 
-export interface TagWithUserAndPosts extends Tag {
-  posts: Omit<Post, "userId">[];
-}
+// // --------------------------
+// // TagsOnPosts related interfaces
+// export interface PostWithUserAndTags extends Omit<Post, "userId"> {
+//   user: {
+//     id: number;
+//     name: string;
+//     email: string;
+//     isAdmin: boolean;
+//   };
+//   tags: Tag[];
+// }
 
-// --------------------------
-// Other interfaces
+// export interface TagWithUserAndPosts extends Tag {
+//   posts: Omit<Post, "userId">[];
+// }
+
+// // --------------------------
+// // Other interfaces
 
 export interface ErrorMessage {
   message: string;

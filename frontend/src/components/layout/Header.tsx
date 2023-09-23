@@ -181,7 +181,7 @@ export const Header: React.FC = () => {
                       data-testid="user-info-name"
                       className="text-custom-blue-lightest group-hover:text-custom-blue-extra-darkest"
                     >
-                      {userInfo.name}
+                      {userInfo.email}
                     </span>
                     {isUserOpen ? (
                       <FaChevronUp className="h-5 w-5 text-custom-blue-lightest group-hover:text-custom-blue-extra-darkest" />

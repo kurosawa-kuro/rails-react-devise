@@ -10,21 +10,17 @@ import { FormContainer } from "../../components/layout/FormContainer";
 import { Loader } from "../../components/common/Loader";
 import { loginUser } from "../../services/api";
 import { useAuthStore } from "../../state/store";
-import {
-  UserAuth,
-  UserInfo,
-  UserLoginData,
-} from "../../../../../mysql-express-react-nodejs-typescript-boilerplate/backend/interfaces";
+
 
 export const LoginScreen = () => {
-  const [credentials, setCredentials] = useState<UserLoginData>({
+  const [credentials, setCredentials] = useState<any>({
     email: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const setUserInfo = useAuthStore((state: UserAuth) => state.setUserInfo);
+  const setUserInfo = useAuthStore((state: any) => state.setUserInfo);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -35,7 +31,8 @@ export const LoginScreen = () => {
     setLoading(true);
 
     try {
-      const user: UserInfo = await loginUser(credentials);
+      const user: any = await loginUser(credentials);
+      console.log("user",user);
       setUserInfo(user);
       toast.success("Successfully logged in");
       navigate("/");
